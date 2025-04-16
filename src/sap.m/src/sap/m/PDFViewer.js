@@ -422,7 +422,7 @@ sap.ui.define([
 					//If chrome://flags/#pdf-oopif = enabled trigger the HEAD Request
 					const sMethod = 'HEAD';
 					this._getHeaderInfo(this._sParametrizedSource, sMethod)
-					.then((sCurrentContentType) => {
+					.then(function(sCurrentContentType) {
 						/*	LoadedEvent will be triggered if all the below criteria matches
 								1. If ContentType = "application/pdf" / "application/x-google-chrome-pdf".
 								2. If Browser PDFPlugin is enabled.
@@ -433,12 +433,12 @@ sap.ui.define([
 						} else {
 							this._fireErrorEvent(oEvent.target);
 						}
-					}).catch((e) => {
+					}.bind(this)).catch(function(e) {
 						//If Head Request fails ErrorEvent will be triggered and LoadingError IllustratedMessage is displayed.
 						this._fireErrorEvent(oEvent.target);
 						Log.fatal(e);
 						this.fireEvent("sourceValidationFailed", {}, true);
-					});
+					}.bind(this));
 				}
 			} catch (error) {
 				//Generic Error Handling
